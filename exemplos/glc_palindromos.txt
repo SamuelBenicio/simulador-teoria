@@ -1,0 +1,2 @@
+# Palíndromos sobre {a,b}
+S -> aSa | bSb | a | b | λ

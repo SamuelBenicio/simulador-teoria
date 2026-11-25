@@ -1,0 +1,30 @@
+digraph usecases {
+  rankdir=LR;
+  graph [fontname="Helvetica", pad=0.3, nodesep=0.35, ranksep=1.2];
+  node [fontname="Helvetica", fontsize=10];
+  edge [arrowhead=none];
+
+  Estudante [shape=box, style="rounded,filled", fillcolor="#F7F7F2", label="«ator»\nEstudante"];
+
+  subgraph cluster_sistema {
+    label="Simulador de Linguagens Formais e Modelos Computacionais";
+    fontname="Helvetica"; style=rounded; color="#888888";
+    node [shape=ellipse, style=filled, fillcolor="#E8EEF7"];
+    UC1 [label="UC1 Definir alfabeto e linguagem"];
+    UC2 [label="UC2 Validar cadeia / calcular Σ*, Σ+,\ntamanho e concatenação"];
+    UC3 [label="UC3 Carregar autômato (JSON)"];
+    UC4 [label="UC4 Executar cadeia no AFD/AFN\n(passo a passo)"];
+    UC5 [label="UC5 Definir GLC e derivar cadeia\n(derivação + árvore)"];
+    UC6 [label="UC6 Executar autômato com pilha\n(leitura, estado, pilha)"];
+    UC7 [label="UC7 Executar Máquina de Turing\n(w#w ou soma unária)"];
+    UC8 [label="UC8 Consultar complexidade\ne rodar benchmark"];
+    UC9 [label="UC9 Executar demonstração completa"];
+  }
+
+  Estudante -> UC1; Estudante -> UC2; Estudante -> UC3; Estudante -> UC4;
+  Estudante -> UC5; Estudante -> UC6; Estudante -> UC7; Estudante -> UC8; Estudante -> UC9;
+
+  UC4 -> UC3 [arrowhead=vee, style=dashed, label="«include»", fontsize=9];
+  UC2 -> UC1 [arrowhead=vee, style=dashed, label="«include»", fontsize=9];
+  UC9 -> UC8 [arrowhead=vee, style=dashed, label="«include»", fontsize=9];
+}

@@ -1,0 +1,46 @@
+digraph classes {
+  rankdir=TB;
+  graph [fontname="Helvetica", nodesep=0.5, ranksep=0.7, pad=0.3];
+  node [shape=record, fontname="Helvetica", fontsize=10, style=filled, fillcolor="#F7F7F2"];
+  edge [fontname="Helvetica", fontsize=9];
+
+  Alfabeto [label="{Alfabeto|- simbolos: frozenset[str]|+ valida(cadeia): bool\l+ cadeias_de_tamanho(n)\l+ sigma_estrela(k)\l+ sigma_mais(k)\l}"];
+  Linguagem [label="{Linguagem|- alfabeto: Alfabeto\l- cadeias: set[str]\l- predicado: callable\l|+ pertence(w): bool\l+ enumerar(k): list\l+ concatenacao(L2, k)\l+ uniao(L2, k)\l}"];
+
+  AutomatoFinito [label="{AutomatoFinito|- alfabeto, estados: set\l- inicial: str\l- finais: set\l- delta: dict\l|+ de_json(caminho)\l+ executar(w): ResultadoAF\l+ fecho_lambda(S)\l+ para_afd(): AutomatoFinito\l+ eh_deterministico: bool\l}"];
+  ResultadoAF [label="{ResultadoAF|+ aceita: bool\l+ passos: list[str]\l+ caminho: list[str]\l|+ formatar(): str\l}"];
+
+  GLC [label="{GLC|- variaveis, terminais: set\l- producoes: list\l- inicial: str\l- anulaveis: set\l|+ de_texto(txt) / de_arquivo(f)\l+ derivar(w): ResultadoGLC\l- _podar(forma, w): bool\l}"];
+  ResultadoGLC [label="{ResultadoGLC|+ aceita: bool\l+ derivacao: list\l+ arvore: No\l|+ formatar(): str\l}"];
+  No [label="{No|+ simbolo: str\l+ filhos: list[No]\l}"];
+
+  AutomatoPilha [label="{AutomatoPilha|- estados, alfabeto: set\l- alfabeto_pilha: set\l- simbolo_inicial: str\l- delta: dict\l|+ an_bn(): AutomatoPilha\l+ executar(w): ResultadoAP\l}"];
+  ResultadoAP [label="{ResultadoAP|+ aceita: bool\l+ passos: list[PassoAP]\l|+ formatar(): str\l}"];
+  PassoAP [label="{PassoAP|+ leitura, estado, pilha: str\l+ acao: str\l}"];
+
+  MaquinaTuring [label="{MaquinaTuring|- estados, alfabeto: set\l- inicial: str\l- finais: set\l- branco: str\l- delta: dict\l|+ reconhecedor_w_hash_w()\l+ somador_unario()\l+ executar(w): ResultadoMT\l}"];
+  ResultadoMT [label="{ResultadoMT|+ aceita: bool\l+ passos: list[str]\l+ fita_final: str\l|+ formatar(): str\l}"];
+
+  Complexidade [label="{«módulo» complexidade|+ TABELA: list\l|+ imprimir_tabela(): str\l+ benchmark(): str\l}", fillcolor="#E8EEF7"];
+  Main [label="{«interface» main.py (console)|+ menu()\l+ demo()\l+ mod_linguagem / mod_af / mod_glc\l+ mod_ap / mod_mt / mod_complexidade\l}", fillcolor="#E8EEF7"];
+
+  Linguagem -> Alfabeto [label="usa", arrowhead=vee];
+  AutomatoFinito -> ResultadoAF [label="produz", arrowhead=vee, style=dashed];
+  GLC -> ResultadoGLC [label="produz", arrowhead=vee, style=dashed];
+  ResultadoGLC -> No [label="1 raiz", dir=both, arrowtail=diamond, arrowhead=none];
+  No -> No [label="filhos *", arrowhead=vee];
+  AutomatoPilha -> ResultadoAP [label="produz", arrowhead=vee, style=dashed];
+  ResultadoAP -> PassoAP [label="*", dir=both, arrowtail=diamond, arrowhead=none];
+  MaquinaTuring -> ResultadoMT [label="produz", arrowhead=vee, style=dashed];
+
+  Main -> Alfabeto [arrowhead=vee, style=dotted];
+  Main -> AutomatoFinito [arrowhead=vee, style=dotted];
+  Main -> GLC [arrowhead=vee, style=dotted];
+  Main -> AutomatoPilha [arrowhead=vee, style=dotted];
+  Main -> MaquinaTuring [arrowhead=vee, style=dotted];
+  Main -> Complexidade [arrowhead=vee, style=dotted];
+  Complexidade -> AutomatoFinito [arrowhead=vee, style=dotted];
+  Complexidade -> GLC [arrowhead=vee, style=dotted];
+  Complexidade -> AutomatoPilha [arrowhead=vee, style=dotted];
+  Complexidade -> MaquinaTuring [arrowhead=vee, style=dotted];
+}

@@ -1,0 +1,15 @@
+{
+  "estados": ["q0", "q1", "q2", "qf"],
+  "alfabeto": ["0", "1"],
+  "alfabeto_fita": ["0", "1", "_"],
+  "branco": "_",
+  "inicial": "q0",
+  "finais": ["qf"],
+  "transicoes": [
+    {"de": "q0", "le": "0", "para": "q0", "escreve": "0", "move": "R"},
+    {"de": "q0", "le": "1", "para": "q1", "escreve": "0", "move": "R"},
+    {"de": "q1", "le": "0", "para": "q1", "escreve": "0", "move": "R"},
+    {"de": "q1", "le": "_", "para": "q2", "escreve": "_", "move": "L"},
+    {"de": "q2", "le": "0", "para": "qf", "escreve": "_", "move": "S"}
+  ]
+}
